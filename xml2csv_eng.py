@@ -1,5 +1,6 @@
 import pandas as pd
 import xml.etree.ElementTree as ET
+import os
 
 def xml_to_df(xml_path):
     data_dict = {}
@@ -9,9 +10,9 @@ def xml_to_df(xml_path):
         if event == "start":
             current_path.append(elem.tag)
 
-            # Checking attributes
+            # Checking for attributes
             for attr, value in elem.attrib.items():
-                # Creating column name using last two tags and attribute, if available
+                # Constructing column name using the last two tags and the attribute, if available
                 tag_name = f"{'_'.join(current_path[-2:])}_{attr}" if len(current_path) > 1 else f"{elem.tag}_{attr}"
 
                 if tag_name not in data_dict:
@@ -20,7 +21,7 @@ def xml_to_df(xml_path):
 
         elif event == "end":
             if elem.text and not elem.text.isspace():
-                # Again, creating column name using last two tags
+                # Again, constructing column name using the last two tags
                 tag_name = '_'.join(current_path[-2:]) if len(current_path) > 1 else current_path[-1]
 
                 if tag_name not in data_dict:
@@ -34,20 +35,32 @@ def xml_to_df(xml_path):
     # Finding the longest list
     max_len = max([len(lst) for lst in data_dict.values()])
 
-    # Making all lists the same length
+    # Making all lists of the same length
     for key, value in data_dict.items():
         data_dict[key] = value + [None] * (max_len - len(value))
 
     df = pd.DataFrame(data_dict)
     return df
 
-xml_path = "rows.xml"  # Insert your XML file path here
-df = xml_to_df(xml_path)
-# print(df)
+# Defining input and output folders
+input_folder = "input_xml"  # Path to the folder containing XML files
+output_folder = "output_csv"  # Path to the folder where CSV files will be saved
 
-print(df.columns)
+# Create the output folder if it doesn't exist
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
 
-# Save DataFrame to a CSV file
-csv_path = "output.csv"  # Path where CSV file will be saved. You can change it to a path of your choice.
-df.to_csv(csv_path, index=False)
-print(f"Data has been saved to {csv_path}")
+# Process all XML files in the input_folder
+for filename in os.listdir(input_folder):
+    if filename.endswith(".xml"):
+        xml_path = os.path.join(input_folder, filename)
+        df = xml_to_df(xml_path)
+
+        # Stripping the .xml extension and adding .csv
+        csv_filename = f"{filename[:-4]}.csv"
+        csv_path = os.path.join(output_folder, csv_filename)
+
+        df.to_csv(csv_path, index=False)
+        print(f"Data from {filename} has been saved to {csv_filename}")
+
+print("All files processed!")

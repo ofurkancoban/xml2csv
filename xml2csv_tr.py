@@ -1,6 +1,6 @@
 import pandas as pd
 import xml.etree.ElementTree as ET
-
+import os
 
 def xml_to_df(xml_path):
     data_dict = {}
@@ -42,14 +42,25 @@ def xml_to_df(xml_path):
     df = pd.DataFrame(data_dict)
     return df
 
+# Giriş ve çıktı klasörlerini tanımlayın
+input_folder = "input_xml"  # XML dosyalarının bulunduğu klasör yolu
+output_folder = "output_csv"  # Çıktı CSV dosyalarının kaydedileceği klasör yolu
 
-xml_path = "rows (2).xml"  # XML dosya yolunuzu bu alana girin
-df = xml_to_df(xml_path)
-# print(df)
+# Eğer output klasörü yoksa oluştur
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
 
-print(df.columns)
+# input_folder içindeki tüm XML dosyalarını işle
+for filename in os.listdir(input_folder):
+    if filename.endswith(".xml"):
+        xml_path = os.path.join(input_folder, filename)
+        df = xml_to_df(xml_path)
 
-# DataFrame'i CSV dosyasına kaydedin
-csv_path = "output.csv"  # CSV dosyasının kaydedileceği yol. İstediğiniz bir yol ile değiştirebilirsiniz.
-df.to_csv(csv_path, index=False)
-print(f"Data has been saved to {csv_path}")
+        # Dosya adını .xml uzantısından arındırarak .csv uzantısı ekleyin
+        csv_filename = f"{filename[:-4]}.csv"
+        csv_path = os.path.join(output_folder, csv_filename)
+
+        df.to_csv(csv_path, index=False)
+        print(f"Data from {filename} has been saved to {csv_filename}")
+
+print("All files processed!")
