@@ -1,3 +1,4 @@
+![xml2csv](https://github.com/ofurkancoban/xml2csv/blob/main/img/xml2csv.gif)
 # 📌This script automatically assigns the tags and attributes of XML files to the columns of a Dataframe and converts them into CSV files.
 
 # Automated Data Transformation: From XML to CSV
