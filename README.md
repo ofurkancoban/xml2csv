@@ -1,5 +1,5 @@
-# This script automatically assigns the tags and attributes of XML files to the columns of a Dataframe and converts them into CSV files.
----
+# 📌This script automatically assigns the tags and attributes of XML files to the columns of a Dataframe and converts them into CSV files.
+
 # Automated Data Transformation: From XML to CSV
 
 XML (Extensible Markup Language), with its inherent hierarchical structure, is widely adopted for data storage and transportation. The nested nature of tags combined with their attributes offers rich expressiveness, making XML suitable for various applications. However, for data analysis and visualization, a more tabular structure, like CSV (Comma-Separated Values), is often preferred. Transitioning from XML to CSV can pose challenges due to the complexities within XML structures. The provided Python script streamlines this transformation process by leveraging automation.
@@ -60,9 +60,4 @@ With data in a tabular format, analyses become straightforward. Libraries like P
 Compared to XML's verbose nature, CSV usually results in more compact file sizes, making data storage more efficient.
 
 ---
-
-I'm always seeking to improve and learn. If you have comments, suggestions, or any feedback on this article or the provided code, please feel free to share. Your insights are invaluable.
-
-For more of my work, projects, and code repositories, check out my [GitHub account](https://github.com/ofurkancoban). Additionally, you can also explore datasets and kernels I've worked on at my [Kaggle profile](https://www.kaggle.com/ofurkancoban/).
-
 Thank you for reading, and I look forward to engaging with the community further!
