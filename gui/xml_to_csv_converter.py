@@ -32,26 +32,40 @@ def xml_to_df(xml_path):
     # Finding the longest list
     max_len = max([len(lst) for lst in data_dict.values()])
 
-    # Making all lists of the same length
+    # Making all lists the same length
     for key, value in data_dict.items():
         data_dict[key] = value + [None] * (max_len - len(value))
 
     df = pd.DataFrame(data_dict)
     return df
 
-def convert_to_csv():
-    xml_path = filedialog.askopenfilename(filetypes=[("XML files", "*.xml")])
-    if xml_path:
+
+def convert_to_csv(xml_paths):
+    # Ask for directory to save all CSV files
+    save_directory = filedialog.askdirectory()
+    if not save_directory:
+        return  # Exit if no directory is selected
+
+    for xml_path in xml_paths:
         df = xml_to_df(xml_path)
-        csv_path = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("CSV files", "*.csv")])
-        if csv_path:
-            df.to_csv(csv_path, index=False)
-            label_info.config(text=f'Dönüştürüldü: {csv_path}')
+        # Generating a name for the CSV file
+        base = os.path.basename(xml_path)
+        csv_filename = os.path.splitext(base)[0] + '.csv'
+        csv_path = os.path.join(save_directory, csv_filename)  # Save in the selected directory
+        df.to_csv(csv_path, index=False)
+        label_info.config(text=f'Converted: {csv_path}')  # Update info label
+
+
+def select_files():
+    xml_paths = filedialog.askopenfilenames(filetypes=[("XML files", "*.xml")])  # Allowing multiple file selection
+    if xml_paths:
+        convert_to_csv(xml_paths)
+
 
 root = tk.Tk()
 root.title("XML to CSV Converter")
 
-button_select = tk.Button(root, text="XML Dosyası Seç ve Dönüştür", command=convert_to_csv)
+button_select = tk.Button(root, text="Choose XML files and Convert!", command=select_files)
 button_select.pack()
 
 label_info = tk.Label(root, text="")
