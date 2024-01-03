@@ -37,20 +37,25 @@ def xml_to_df(xml_path):
 # Initialize your Streamlit application
 st.title('📁 Multiple XML to CSV Converter')
 
-# Display social media accounts with FontAwesome icons
-st.markdown("""
-    <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
-        <a href="https://github.com/YOUR_USERNAME" target="_blank">
-            <i class="fab fa-github fa-2x"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/YOUR_USERNAME" target="_blank">
-            <i class="fab fa-linkedin fa-2x"></i>
-        </a>
-        <a href="https://www.kaggle.com/YOUR_USERNAME" target="_blank">
-            <i class="fab fa-kaggle fa-2x"></i>
-        </a>
-    </div>
-""", unsafe_allow_html=True)
+# Assuming you have the icons in the same directory as your script or provide the relative path.
+# If you're using URLs, replace the local paths with the URLs
+icons = {
+    "GitHub": "https://raw.githubusercontent.com/ofurkancoban/xml2csv/master/img/github.svg",  # Replace with your GitHub icon or URL
+    "LinkedIn": "https://raw.githubusercontent.com/ofurkancoban/xml2csv/master/img/linkedin-in.svg",  # Replace with your LinkedIn icon or URL
+    "Kaggle": "https://raw.githubusercontent.com/ofurkancoban/xml2csv/master/img/kaggle.svg"  # Replace with your Kaggle icon or URL
+}
+
+# Display social media accounts with icons
+cols = st.columns(3)
+urls = [
+    "https://github.com/ofurkancoban",  # Replace with your GitHub profile
+    "https://www.linkedin.com/in/ofurkancoban",  # Replace with your LinkedIn profile
+    "https://www.kaggle.com/ofurkancoban"  # Replace with your Kaggle profile
+]
+for col, (name, icon_path), url in zip(cols, icons.items(), urls):
+    with col:
+        st.image(icon_path, width=30)  # Display the icon
+        st.markdown(f"[{name}]({url})", unsafe_allow_html=True)  # Display the link
 
 uploaded_files = st.file_uploader("Choose XML files", accept_multiple_files=True, type=['xml'])
 
