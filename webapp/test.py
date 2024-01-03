@@ -27,7 +27,6 @@ def xml_to_df(xml_path):
             current_path.pop()
             elem.clear()
 
-    # Finding the longest list in the dictionary and padding lists to equal length
     max_len = max(len(lst) for lst in data_dict.values())
     for lst in data_dict.values():
         lst.extend([None] * (max_len - len(lst)))
@@ -37,25 +36,26 @@ def xml_to_df(xml_path):
 # Initialize your Streamlit application
 st.title('📁 Multiple XML to CSV Converter')
 
-# Assuming you have the icons in the same directory as your script or provide the relative path.
-# If you're using URLs, replace the local paths with the URLs
+# Social media information
 icons = {
-    "GitHub": "https://raw.githubusercontent.com/ofurkancoban/xml2csv/master/img/github.svg",  # Replace with your GitHub icon or URL
-    "LinkedIn": "https://raw.githubusercontent.com/ofurkancoban/xml2csv/master/img/linkedin-in.svg",  # Replace with your LinkedIn icon or URL
-    "Kaggle": "https://raw.githubusercontent.com/ofurkancoban/xml2csv/master/img/kaggle.svg"  # Replace with your Kaggle icon or URL
+    "GitHub": "github_icon.png",  # Replace with your GitHub icon or URL
+    "LinkedIn": "linkedin_icon.png",  # Replace with your LinkedIn icon or URL
+    "Kaggle": "kaggle_icon.png"  # Replace with your Kaggle icon or URL
 }
 
-# Display social media accounts with icons
-cols = st.columns(3)
 urls = [
-    "https://github.com/ofurkancoban",  # Replace with your GitHub profile
-    "https://www.linkedin.com/in/ofurkancoban",  # Replace with your LinkedIn profile
-    "https://www.kaggle.com/ofurkancoban"  # Replace with your Kaggle profile
+    "https://github.com/YOUR_USERNAME",  # Replace with your GitHub profile
+    "https://www.linkedin.com/in/YOUR_USERNAME",  # Replace with your LinkedIn profile
+    "https://www.kaggle.com/YOUR_USERNAME"  # Replace with your Kaggle profile
 ]
-for col, (name, icon_path), url in zip(cols, icons.items(), urls):
+
+# Centering the icons
+cols = st.columns([1, 2, 1, 2, 1, 2, 1])
+icon_cols = [cols[1], cols[3], cols[5]]  # Pick the middle columns for icons
+for col, (name, icon_path), url in zip(icon_cols, icons.items(), urls):
     with col:
-        st.image(icon_path, width=30)  # Display the icon
-        st.markdown(f"[{name}]({url})", unsafe_allow_html=True)  # Display the link
+        # Use markdown to create clickable images
+        st.markdown(f"<a href='{url}' target='_blank'><img src='{icon_path}' width='30'></a>", unsafe_allow_html=True)
 
 uploaded_files = st.file_uploader("Choose XML files", accept_multiple_files=True, type=['xml'])
 
@@ -99,4 +99,5 @@ if uploaded_files:
             with st.expander("🔍 View Data"):
                 st.dataframe(df)
 
-# Note: To run this script, save it as a .py file and use the command: streamlit run your_script_name.py
+# Note: Replace paths or URLs with actual paths to your icon images and replace YOUR_USERNAME with your actual usernames.
+# To run this script, save it as a .py file and use the command: streamlit run your_script_name.py
