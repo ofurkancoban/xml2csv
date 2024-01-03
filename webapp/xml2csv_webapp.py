@@ -35,7 +35,28 @@ def xml_to_df(xml_path):
 
 
 # Set page to wide mode as default
-st.set_page_config(layout="wide")
+st.set_page_config(
+    layout="wide",
+    page_title="XML2CSV by ofurkancoban",
+    page_icon="🇹🇷"
+)
+
+def custom_css():
+    st.markdown("""
+        <style>
+            .st-bc { background-color: #282a36; } 
+            .st-cb { color: #f8f8f2; } 
+            .st-ci { color: #f8f8f2; } 
+            .st-af { color: #bd93f9; }
+            .st-ag { background-color: #44475a; }
+            .css-145kmo2 { color: #f8f8f2; }
+            /* Other class names can be added here */
+        </style>
+        """, unsafe_allow_html=True)
+
+# Apply the custom CSS
+custom_css()
+
 # Custom CSS to inject larger fonts
 def set_font(font_name):
     st.markdown(f"""
@@ -50,6 +71,9 @@ def set_font(font_name):
     """, unsafe_allow_html=True)
 # Set font for entire app
 set_font("Verdana")
+
+
+
 # Initialize Streamlit application
 st.markdown('<div style="text-align: center;font-size:300%;margin-bottom: 40px"><b>XML to CSV Converter</b></div>', unsafe_allow_html=True)
 
@@ -94,7 +118,7 @@ if uploaded_files:
 
         progress = int((index / total_files) * 100)
         progress_bar.progress(progress)
-        percentage_text.markdown(f"<div style='text-align: left;font-size:250%'><b>Processing: {index}/{total_files} files ({progress}%)</b></div>", unsafe_allow_html=True)
+        percentage_text.markdown(f"<div style='text-align: left;font-size:200%'><b>Processing: {index}/{total_files} files ({progress}%)</b></div>", unsafe_allow_html=True)
         line.markdown(f"------------------------------------",
             unsafe_allow_html=True)
 
