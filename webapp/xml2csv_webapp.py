@@ -41,21 +41,6 @@ st.set_page_config(
     page_icon="🇹🇷"
 )
 
-def custom_css():
-    st.markdown("""
-        <style>
-            .st-bc { background-color: #282a36; } 
-            .st-cb { color: #f8f8f2; } 
-            .st-ci { color: #f8f8f2; } 
-            .st-af { color: #bd93f9; }
-            .st-ag { background-color: #44475a; }
-            .css-145kmo2 { color: #f8f8f2; }
-            /* Other class names can be added here */
-        </style>
-        """, unsafe_allow_html=True)
-
-# Apply the custom CSS
-custom_css()
 
 # Custom CSS to inject larger fonts
 def set_font(font_name):
