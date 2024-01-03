@@ -20,30 +20,65 @@ def xml_to_df(xml_path):
 
         elif event == "end":
             if elem.text and not elem.text.isspace():
-                tag_name = '_'.join(current_path[-2:]) if len(current_path) > 1 else current_path[-1]
+                tag_name = '_'.join(current_path) if current_path else elem.tag
                 if tag_name not in data_dict:
                     data_dict[tag_name] = []
                 data_dict[tag_name].append(elem.text.strip())
             current_path.pop()
             elem.clear()
 
-    # Finding the longest list and equalizing lengths
-    max_len = max([len(lst) for lst in data_dict.values()])
-    for key, value in data_dict.items():
-        data_dict[key] = value + [None] * (max_len - len(value))
+    max_len = max(len(lst) for lst in data_dict.values())
+    for lst in data_dict.values():
+        lst.extend([None] * (max_len - len(lst)))
 
-    df = pd.DataFrame(data_dict)
-    return df
+    return pd.DataFrame(data_dict)
 
-# Initialize your Streamlit application
-st.title('📁 Multiple XML to CSV Converter')
+
+# Set page to wide mode as default
+st.set_page_config(layout="wide")
+# Custom CSS to inject larger fonts
+def set_font(font_name):
+    st.markdown(f"""
+    <style>
+        html, body, [class*="st-"] {{
+            font-family: '{font_name}', sans-serif;
+        }}
+        h1 {{
+            text-align: center;
+        }}
+    </style>
+    """, unsafe_allow_html=True)
+# Set font for entire app
+set_font("Verdana")
+# Initialize Streamlit application
+st.markdown('<div style="text-align: center;font-size:300%;margin-bottom: 40px"><b>XML to CSV Converter</b></div>', unsafe_allow_html=True)
+
+# Social media information
+icons = {
+    "GitHub": "https://raw.githubusercontent.com/ofurkancoban/xml2csv/master/img/github.png",  # Replace with your GitHub icon or URL
+    "LinkedIn": "https://raw.githubusercontent.com/ofurkancoban/xml2csv/master/img/linkedin-in.png",  # Replace with your LinkedIn icon or URL
+    "Kaggle": "https://raw.githubusercontent.com/ofurkancoban/xml2csv/master/img/kaggle.png"  # Replace with your Kaggle icon or URL
+}
+
+urls = [
+    "https://github.com/ofurkancoban",
+    "https://www.linkedin.com/in/ofurkancoban",
+    "https://www.kaggle.com/ofurkancoban"
+]
+
+# Centering the icons
+cols = st.columns([1, 1, 1, 1])
+icon_cols = [cols[1], cols[2], cols[3]]  # Pick the middle columns for icons
+for col, (name, icon_path), url in zip(icon_cols, icons.items(), urls):
+    with col:
+        st.markdown(f"<a href='{url}' target='_blank'><img src='{icon_path}' width='30'></a>", unsafe_allow_html=True)
 
 uploaded_files = st.file_uploader("Choose XML files", accept_multiple_files=True, type=['xml'])
 
 if uploaded_files:
     progress_bar = st.progress(0)
     percentage_text = st.empty()
-
+    line = st.markdown("_______________________________________________________")
 dataframes = {}
 
 if uploaded_files:
@@ -59,17 +94,20 @@ if uploaded_files:
 
         progress = int((index / total_files) * 100)
         progress_bar.progress(progress)
-        percentage_text.markdown(f"<h2 style='text-align: left; color: white;'>Processing: {index}/{total_files} files ({progress}%)</h2>", unsafe_allow_html=True)
+        percentage_text.markdown(f"<div style='text-align: left;font-size:250%'><b>Processing: {index}/{total_files} files ({progress}%)</b></div>", unsafe_allow_html=True)
+        line.markdown(f"------------------------------------",
+            unsafe_allow_html=True)
 
     for file_name, df in dataframes.items():
         rows, cols = df.shape  # Get the number of rows and columns
         with st.container():
-            col1, col2 = st.columns([0.8, 0.2])
+            col1, col2 = st.columns([0.888, 0.112])
 
             with col1:
-                st.subheader(f"{file_name} - Rows: {rows}, Columns: {cols}")
+                # Display file name
+                st.markdown(f"<div style=font-size:150%> {file_name}</div>", unsafe_allow_html=True)
 
-            with col2:
+            with col2:  # Download button in the far right
                 st.download_button(
                     label="Download CSV",
                     data=df.to_csv(index=False).encode('utf-8'),
@@ -77,7 +115,5 @@ if uploaded_files:
                     mime='text/csv'
                 )
 
-            with st.expander("🔍 View Data"):
+            with st.expander(f"🔍  View Data - [ Rows: {rows} x Columns: {cols} ]"):
                 st.dataframe(df)
-
-# Note: To run this script, save it as a .py file and use the command: streamlit run your_script_name.py
