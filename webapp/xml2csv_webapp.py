@@ -41,6 +41,38 @@ st.set_page_config(
     page_icon="🇹🇷"
 )
 
+def add_hover_effects():
+    st.markdown("""
+        <style>
+            a img { 
+                transition: transform 0.2s ease; /* Smooth transition */
+            }
+            a img:hover {
+                transform: scale(2); /* Slightly enlarge the icon */
+                opacity: 0.7; /* Make the icon a bit transparent */
+            }
+        </style>
+        """, unsafe_allow_html=True)
+
+# Apply the custom CSS for hover effects
+add_hover_effects()
+def add_title_hover_effect():
+    st.markdown("""
+        <style>
+            /* Custom style for the main title with class 'title-hover' */
+            .title-hover{
+                 transition: transform 0.2s ease; /* Smooth transition */
+            }
+            .title-hover:hover {
+                transform: scale(1.3); /* Slightly enlarge the icon */
+                opacity: 0.7; /* Make the icon a bit transparent */
+            }
+        </style>
+        """, unsafe_allow_html=True)
+
+# Apply the custom CSS for hover effects
+add_title_hover_effect()
+
 
 # Custom CSS to inject larger fonts
 def set_font(font_name):
@@ -60,7 +92,7 @@ set_font("Verdana")
 
 
 # Initialize Streamlit application
-st.markdown('<div style="text-align: center;font-size:300%;margin-bottom: 40px"><b>XML to CSV Converter</b></div>', unsafe_allow_html=True)
+st.markdown('<div class="title-hover" style="text-align: center;font-size:300%;margin-bottom: 40px"><b>XML to CSV Converter</b></div>', unsafe_allow_html=True)
 
 # Social media information
 icons = {
