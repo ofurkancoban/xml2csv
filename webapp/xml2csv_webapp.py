@@ -116,6 +116,16 @@ for col, (name, icon_path), url in zip(icon_cols, icons.items(), urls):
 
 uploaded_files = st.file_uploader("Choose XML files", accept_multiple_files=True, type=['xml'])
 
+# Check file size for each uploaded file
+if uploaded_files:
+    for uploaded_file in uploaded_files:
+        # Check file size (Streamlit uploads files as BytesIO objects)
+        size_mb = uploaded_file.size / (1024 * 1024)  # Convert bytes to MB
+        if size_mb > 20:
+            st.error(f"File {uploaded_file.name} is too large ({size_mb:.2f} MB). Please upload files smaller than 20 MB.")
+            continue  # Skip this file and move to the next one
+
+
 if uploaded_files:
     progress_bar = st.progress(0)
     percentage_text = st.empty()
@@ -142,7 +152,7 @@ if uploaded_files:
     for file_name, df in dataframes.items():
         rows, cols = df.shape  # Get the number of rows and columns
         with st.container():
-            col1, col2 = st.columns([0.888, 0.112])
+            col1, col2 = st.columns([0.80, 0.20])
 
             with col1:
                 # Display file name
@@ -153,8 +163,12 @@ if uploaded_files:
                     label="Download CSV",
                     data=df.to_csv(index=False).encode('utf-8'),
                     file_name=f'{file_name[:-4]}.csv',
-                    mime='text/csv'
+                    mime='text/csv',
+                    use_container_width = True
                 )
 
             with st.expander(f"🔍  View Data - [ Rows: {rows} x Columns: {cols} ]"):
                 st.dataframe(df)
+
+
+# streamlit run xml2csv_webapp.py
