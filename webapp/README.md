@@ -1,5 +1,5 @@
 # ➡️ [Try the XML to CSV Converter](http://xml2csv.streamlit.app) ⬅️
-
+![xml2csv](https://github.com/ofurkancoban/xml2csv/blob/master/img/xml2csv_webapp.gif)
 # 🔄 XML to CSV Converter Web App
 
 ## 📜 Overview

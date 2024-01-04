@@ -1,7 +1,7 @@
 # ➡️ [Try the XML to CSV Converter](http://xml2csv.streamlit.app) ⬅️
 # 🌟 Introducing: XML to CSV Converter Web App! 🌟
-
-We are thrilled to announce the launch of our **brand new web application** that simplifies your data conversion needs! Say goodbye to cumbersome data handling processes and welcome a seamless experience with our XML to CSV Converter.
+![xml2csv](https://github.com/ofurkancoban/xml2csv/blob/master/img/xml2csv_webapp.gif)
+I'm thrilled to announce the launch of my **brand new web application** that simplifies your data conversion needs! Say goodbye to cumbersome data handling processes and welcome a seamless experience with my XML to CSV Converter.
 
 ## 🚀 Features at a Glance:
 - **📤 Multi-file Upload**: Convert multiple files at once for efficiency.
