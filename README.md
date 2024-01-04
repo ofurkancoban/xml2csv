@@ -1,3 +1,51 @@
+# ➡️ [Try the XML to CSV Converter](http://xml2csv.streamlit.app) ⬅️
+# 🌟 Introducing: XML to CSV Converter Web App! 🌟
+
+We are thrilled to announce the launch of our **brand new web application** that simplifies your data conversion needs! Say goodbye to cumbersome data handling processes and welcome a seamless experience with our XML to CSV Converter.
+
+## 🚀 Features at a Glance:
+- **📤 Multi-file Upload**: Convert multiple files at once for efficiency.
+- **🚀 Progress Tracking**: Stay updated with a real-time progress bar.
+- **🔍 File Size Validation**: Ensure optimal performance with file size checks.
+- **🔎 Data Preview**: Peek into your converted data before downloading.
+- **💾 Download CSV**: Securely download your converted files in CSV format.
+
+## 🎉 Try it Now!
+Get started with your data transformation journey today! Click below to access the web app:
+
+# ➡️ [Try the XML to CSV Converter](http://xml2csv.streamlit.app) ⬅️
+
+
+
+# 🔄 XML to CSV Converter Web App
+## 📜 Overview
+This web application, built with Streamlit, provides a user-friendly interface to convert XML files into CSV format. Users can upload multiple XML files, view the conversion progress, and download the resulting CSV files.
+
+## ✨ Features
+- **📤 Multi-file Upload**: Upload and process multiple XML files simultaneously.
+- **🚀 Progress Tracking**: View the progress of file conversion with a progress bar.
+- **🔍 File Size Validation**: Ensures files are within the acceptable size limit (20 MB(You can change the limit from config.toml file.)).
+- **🔎 Data Preview**: Preview the converted data before downloading.
+- **💾 Download CSV**: Download the converted files as CSV directly from the app.
+
+## 🚀 How to Use
+1. Run the app using `streamlit run xml2csv_webapp.py`.
+2. Upload one or more XML files using the file uploader.
+3. Monitor the progress bar as the app processes the files.
+4. Download the resulting CSV files once processing is complete.
+
+## 🔧 Running the App
+Ensure you have Streamlit and other necessary libraries installed. Run the app with the following command:
+
+```shell
+streamlit run xml2csv_webapp.py
+```
+
+
+--------------------
+
+
+
 ![xml2csv](https://github.com/ofurkancoban/xml2csv/blob/master/img/xml2csv.gif)
 # 📌This script automatically assigns the tags and attributes of XML files to the columns of a Dataframe and converts them into CSV files.
 
